@@ -3,9 +3,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TravelInsuranceController } from '../controllers/travel-insurance.controller';
 import { TravelInsuranceService } from '../services/travel-insurance.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController, TravelInsuranceController],
   providers: [AppService, TravelInsuranceService],
 })
