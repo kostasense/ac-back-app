@@ -6,11 +6,7 @@ import { TravelInsuranceService } from '../services/travel-insurance.service';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-  ],
+  imports: [ConfigModule.forRoot()],
   controllers: [AppController, TravelInsuranceController],
   providers: [AppService, TravelInsuranceService],
 })
