@@ -1,5 +1,3 @@
-// src/interfaces.ts
-
 export interface AuthResponse {
     traceId: string;
     isSuccess: boolean;

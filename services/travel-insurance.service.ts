@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { AuthResponse, QuoteResponse } from '../src/interfaces';
+import { AuthResponse, QuoteResponse } from '../src/interfaces/interfaces';
+import { ConfigService } from '@nestjs/config';
 
 interface RequestData {
   startDate: string;
@@ -11,15 +12,28 @@ interface RequestData {
 
 @Injectable()
 export class TravelInsuranceService {
+  
+  constructor(private configService: ConfigService) {}
+
+  username = this.configService.get<string>('USNAME');
+  password = this.configService.get<string>('PASSWORD');
+  authUrl = this.configService.get<string>('AUTH_URL');
+  quoteUrl = this.configService.get<string>('QUOTE_URL');
+
+
   async loginToGetToken(): Promise<string> {
+
+    console.log('User:', this.username);  // Verifica el valor
+    console.log('Password:', this.password);  // Verifica el valor
+
     const credentials = {
-      userName: 'TestSandBox',
-      password: 'O0AEZDKpeTLaX08O_',
+      userName: this.username,
+      password: this.password,
     };
 
     try {
       const response = await axios.post<AuthResponse>(
-        'https://sandbox.assistcard.com/api/Authentication/login',
+        this.authUrl!,
         credentials,
       );
       return response.data.data.token;
@@ -63,7 +77,7 @@ export class TravelInsuranceService {
 
     try {
       const response = await axios.post<QuoteResponse>(
-        'https://sandbox.assistcard.com/api/v1/Quote/product',
+        this.quoteUrl!,
         data,
         { headers },
       );
