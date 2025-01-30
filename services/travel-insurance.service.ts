@@ -20,11 +20,7 @@ export class TravelInsuranceService {
   authUrl = this.configService.get<string>('AUTH_URL');
   quoteUrl = this.configService.get<string>('QUOTE_URL');
 
-
   async loginToGetToken(): Promise<string> {
-
-    console.log('User:', this.username);  // Verifica el valor
-    console.log('Password:', this.password);  // Verifica el valor
 
     const credentials = {
       userName: this.username,
